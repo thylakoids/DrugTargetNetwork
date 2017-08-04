@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+  <title> Citation Map</title>
+  <script type="text/javascript" src="lib/DTN/vis.js"></script>
+  <link href="lib/DTN/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    #mynetwork {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    #addnode{
+      z-index:1;
+    }
+  </style>
+  </head>
+  <body>
+  <div id='mynetwork'></div>
+<script type="text/javascript">
+var nodes_j={{nodes|safe}}
+  // create an array with nodes
+  var nodes = new vis.DataSet(nodes_j);
+
+  // create an array with edges
+  var edges_j={{edges|safe}}
+  var edges = new vis.DataSet(edges_j)
+
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+
+  var options = {
+    interaction:{hover:true},
+    nodes:{
+      size:15,
+      shape:'dot',
+      shadow:true
+    }
+  };
+  
+  var network = new vis.Network(container, data, options);
+</script>
+  </body>
