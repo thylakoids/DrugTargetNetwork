@@ -1,6 +1,9 @@
 #coding:utf-8
 #read data from file, and translate to network
-#read top100.csv, top100 network
+#from:top100.csv
+#from:atc.csv
+#to:top100Nodes.csv
+#to:top100Edges.csv
 import pandas as pd 
 def addnewrow(df,row):
 	d=pd.DataFrame(row).T
@@ -12,10 +15,10 @@ def getatcabbr(atc):
 		atcone='V'
 	else:
 		atcone=atc.strip()[0]
-	atcdb=pd.read_csv('work/atc.csv')
+	atcdb=pd.read_csv('doc/atc.csv')
 	return atcdb['abbclass'][atcdb.ATC==atcone].values[0]
 def netdata():
-	target_all=pd.read_csv('top100.csv').fillna('nan')
+	target_all=pd.read_csv('doc/top100.csv').fillna('nan')
 	edges=pd.DataFrame(columns=['from','to']);
 	nodes=pd.DataFrame(columns=['id','label','group','shape','title']);
 	for index,row in target_all.iterrows():
@@ -27,6 +30,6 @@ def netdata():
 			edges=addnewrow(edges,[row['primDrugbankID'],targetid])
 	return nodes.drop_duplicates(),edges.drop_duplicates()
 nodes,edges=netdata()
-nodes.to_csv('top100Nodes.csv',index=False)
-edges.to_csv('top100Edges.csv',index=False)
+nodes.to_csv('doc/top100Nodes.csv',index=False)
+edges.to_csv('doc/top100Edges.csv',index=False)
 

@@ -1,3 +1,7 @@
+#coding:utf-8
+#get the infomation of topdrugs from mysql
+#from:top100retail_name.csv
+#to:top100.csv
 import pymysql
 import time
 import pandas as pd 
@@ -11,7 +15,7 @@ def main():
 		df=pd.concat([df,d],ignore_index=True)
 		return df
 	top100=pd.DataFrame(columns=['primDrugbankID','drugType','name','cas','atc','targets','targetsAll'])
-	top100name=pd.read_csv('top100retail_name.csv')	
+	top100name=pd.read_csv('doc/top100retail_name.csv')	
 
 	for drug in top100name['name']:
 		print drug
@@ -20,7 +24,7 @@ def main():
 		top100=addnewrow(top100,x)
 	cur.close()
 	conn.close()
-	top100.to_csv('top100.csv',index=False)
+	top100.to_csv('doc/top100.csv',index=False)
 
 if __name__=='__main__':
 	main()

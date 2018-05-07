@@ -1,6 +1,8 @@
 #coding:utf-8
 #read data from file, and translate to network
-#read target.csv, target network
+#from: target.csv
+#to:networkNodes.csv
+#to:networkNodes.csv
 import pandas as pd 
 def addnewrow(df,row):
 	d=pd.DataFrame(row).T
@@ -9,7 +11,7 @@ def addnewrow(df,row):
 	return df
 
 def netdata():
-	target_all=pd.read_csv('target.csv')
+	target_all=pd.read_csv('doc/target.csv')
 	edges=pd.DataFrame(columns=['from','to']);
 	nodes=pd.DataFrame(columns=['id','label','group']);
 	for index,row in target_all.iloc[0:500,:].iterrows():
@@ -20,6 +22,6 @@ def netdata():
 			edges=addnewrow(edges,[drugid,row['ID']])
 	return nodes.drop_duplicates(),edges.drop_duplicates()
 nodes,edges=netdata()
-nodes.to_csv('networkNodes.csv',index=False)
-edges.to_csv('networkEdges.csv',index=False)
+nodes.to_csv('doc/networkNodes.csv',index=False)
+edges.to_csv('doc/networkEdges.csv',index=False)
 

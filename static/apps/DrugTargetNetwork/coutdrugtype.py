@@ -1,10 +1,12 @@
 #coding:utf-8
 #drug statics
-#read top100.csv
+#some statics of the top drugs
+#from:top100.csv
+#from:atc.csv
 import pandas as pd 
-top100=pd.read_csv('top100.csv').fillna('V')
+top100=pd.read_csv('doc/top100.csv').fillna('V')
 def bar(topf):	
-	atcdb=pd.read_csv('atc.csv')
+	atcdb=pd.read_csv('doc/atc.csv')
 	atc=topf['atc']
 	#deal nan and combine 
 	atcs=''

@@ -1,3 +1,6 @@
+#coding:utf-8
+#parse full database.xml and save it to mysql
+#from:full database.xml
 from xml.etree import cElementTree as ET
 import pymysql
 import time
@@ -13,7 +16,7 @@ cur.execute('use drugbank')
 cur.execute('CREATE TABLE IF NOT EXISTS drugbank(primDrugbankID varchar(15),drugType varchar(20),name varchar(1000),casNumber varchar(20),drugGroup varchar(100),atcCode varchar(2000),targets varchar(2000),FDA int(3),targetsAll varchar(2000),primary key (primDrugbankID))')
 start=time.time()
 print 'loading xml----------------------->>' 
-drugbank=ET.parse('full database.xml').getroot()
+drugbank=ET.parse('doc/full database.xml').getroot()
 loadedtime=time.time()
 loadingtime=loadedtime-start
 totaldrug=len(drugbank)

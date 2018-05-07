@@ -23,14 +23,13 @@ def getdata(fnode,fedge):
 		return fdata
 	data={'nodes':readfile(fnode),'edges':readfile(fedge)}
 	return frame2json(data['nodes']),frame2json(data['edges'])
-nodes,edges=getdata('static/lib/miRNA/nodesZhu.xlsx','static/lib/miRNA/edgesZhu.xlsx')
+nodes,edges=getdata('static/apps/miRNA/nodesZhu.xlsx','static/apps/miRNA/edgesZhu.xlsx')
 
-Dnodes,Dedges=getdata('static/lib/DrugTargetNetwork/top100Nodes.csv','static/lib/DrugTargetNetwork/top100Edges.csv')
+Dnodes,Dedges=getdata('static/apps/DrugTargetNetwork/doc/top100Nodes.csv','static/apps/DrugTargetNetwork/doc/top100Edges.csv')
 app=Flask(__name__,static_url_path='')
 @app.route('/miRNA')
 def netvisualize():
 	return render_template('miRNA.html',nodes=nodes,edges=edges)
-
 @app.route('/DTN')
 def Dnetvisualize():
 	return render_template('miRNA.html',nodes=Dnodes,edges=Dedges)
@@ -38,4 +37,4 @@ def Dnetvisualize():
 def bar():
 	return render_template('ec.html')
 if __name__=='__main__':
-	app.run(debug=True,threaded=True,port=4001,host='127.0.0.1')
+	app.run(debug=True,threaded=True,port=4000,host='127.0.0.1')
