@@ -1,9 +1,10 @@
 <!doctype html>
 <html>
 <head>
-  <title> Citation Map</title>
-  <script type="text/javascript" src="lib/DTN/vis.js"></script>
-  <link href="lib/DTN/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <title> Top Drugs of 2013 </title>
+  <script type="text/javascript" src="lib/miRNA/vis.js"></script>
+  <link href="lib/miRNA/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <script src="lib/miRNA/echarts.min.js"></script>
   <style type="text/css">
     #mynetwork {
       width: 100vw;
@@ -11,10 +12,10 @@
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
+      z-index: 1;
     }
-    #addnode{
-      z-index:1;
+    #bar{
+      z-index:-1;
     }
   </style>
   </head>
@@ -35,16 +36,36 @@ var nodes_j={{nodes|safe}}
     nodes: nodes,
     edges: edges
   };
-
   var options = {
-    interaction:{hover:true},
-    nodes:{
-      size:15,
-      shape:'dot',
-      shadow:true
+    nodes: {
+      size:80,
+      font: {
+        size:20,
+      }
+    },
+    edges: {
+      smooth: {
+        type: 'continuous'
+      }
+    },
+    interaction: {
+      hover:true,
+      tooltipDelay: 200,
+      hideEdgesOnDrag: false
+    },
+    physics: {
+      stabilization: false,
+      barnesHut: {
+        gravitationalConstant: -8000,
+        springConstant: 0.005,
+        springLength: 200
+      }
     }
   };
-  
   var network = new vis.Network(container, data, options);
+  //event showpopup
+  network.on("showPopup", function (params) {
+        console.log( JSON.stringify(params, null, 4));
+  });
 </script>
   </body>
