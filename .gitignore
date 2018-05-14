@@ -2,3 +2,7 @@
 *.xml
 *.csv
 *.pdf
+*.html
+*.txt
+*.xlsx
+*.xsd
