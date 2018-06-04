@@ -84,7 +84,7 @@ def searchinfo(df):
     cur=conn.cursor()
     cur.execute('use drugbank')
     #result
-    result=pd.DataFrame(columns=['primDrugbankID','drugType','name','cas','atcs','targets','actionss','tsID','tsName'])
+    result=pd.DataFrame(columns=['primDrugbankID','drugType','name','cas','atcs','targets','actionss','FDA','tsID','tsName'])
     outresult=[]
     j=0
     for i in range(len(df)):
@@ -92,16 +92,16 @@ def searchinfo(df):
         cas = re.findall('[0-9]+-[0-9]+-[0-9]+',cas_raw)[0]
         name = df['Name'][i]
         #search the casNumber
-        cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss from V5v1 where casNumber=%s ',cas)
+        cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss,FDA from V5v1 where casNumber=%s ',cas)
         x=cur.fetchone()
-        if not x: #search name
-            cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss from V5v1 where name=%s ',name)
-            x=cur.fetchone()
-        else:
-            j+=1
-        if not x: #try to search the first part of name
-            cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss from V5v1 where name=%s ',name.split()[0])
-            x=cur.fetchone()
+        # if not x: #search name
+        #     cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss,FDA from V5v1 where name=%s ',name)
+        #     x=cur.fetchone()
+        # else:
+        #     j+=1
+        # if not x: #try to search the first part of name
+        #     cur.execute('select primDrugbankID,drugType,name, casNumber,atcCodes,targets,actionss,FDA from V5v1 where name=%s ',name.split()[0])
+        #     x=cur.fetchone()
         if x:
             x=list(x)
             tsID = df['ID'][i]
@@ -123,7 +123,6 @@ def searchinfo(df):
     print len(df)
     print len(result)
     print len(outresult)
-    print 'from cas:',j
 def steps():
     #step1
     druglibpath = '../doc/L1000-Targetmol-Approved Drug Library.xlsx'
@@ -177,5 +176,8 @@ def uniprot2TTD():
     
 
 if __name__=='__main__':
-    # Targetmol2Drugbank()
+    #step 1
+    Targetmol2Drugbank()
+
+    #step 2
     uniprot2TTD()
