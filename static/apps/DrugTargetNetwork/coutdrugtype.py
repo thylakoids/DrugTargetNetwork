@@ -26,6 +26,7 @@ def bar(topf):
 result100=bar(top100)
 resultsmall=bar(top100[top100.drugType=='small molecule'])
 resultbio=bar(top100[top100.drugType=='biotech'])
+
 ','.join([str(resultsmall[x]) for x in result100])
 ','.join([str(resultbio[x]) if x in resultbio else '' for x in result100])
 

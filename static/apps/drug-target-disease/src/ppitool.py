@@ -9,8 +9,7 @@ import matplotlib.pyplot as plt
 
 from finddrug import getUniprot
 from utils.mappingID import Uniprot2String
-
-
+from utils.countdrugtype import bar #todo 
 
 def buildPPIFromDisease(icdrange='C34-C34.9'):
     uniprot_list = getUniprot(icdrange)
@@ -143,7 +142,10 @@ def main():
     df_result[df_result['FDA']==1].to_csv('../out/choose_drugs.csv')
     return df_result   
 if __name__ == '__main__':
-    main()
+    df_result = main()
+    typedrug = bar(df_result.iloc[:50,:])
+    print [typedrug[x] for x in typedrug]  
+
     
     
 

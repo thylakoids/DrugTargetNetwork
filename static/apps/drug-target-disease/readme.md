@@ -141,6 +141,7 @@ hub target nodes related drugs(assign a importance value to each drug)
 observation:
 * multi-target drugs are often low-affinity binders
 
+drug_ip = sum(target_degree+1)/count(target)
 ## potential drug combinations
 ### PPI network construction
 Find lung cancer related target using TTD, and build PPI using STRING.
